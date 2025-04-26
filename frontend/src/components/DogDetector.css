@@ -1,0 +1,181 @@
+/* src/components/DogDetector.css */
+.dog-detector {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dog-detector h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .control-panel {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .file-input {
+    margin-bottom: 15px;
+  }
+  
+  .file-input label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  .file-input input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+  
+  .primary {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .primary:hover:not(:disabled) {
+    background-color: #2563eb;
+  }
+  
+  .secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+  }
+  
+  .secondary:hover {
+    background-color: #d1d5db;
+  }
+  
+  .loading {
+    background-color: #94a3b8;
+    color: white;
+  }
+  
+  .error-message {
+    background-color: #fee2e2;
+    border: 1px solid #ef4444;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  
+  .images-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    .images-container {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    
+    .image-box {
+      width: 48%;
+    }
+  }
+  
+  .image-box h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .image-frame {
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 5px;
+    position: relative;
+  }
+  
+  .original {
+    border-color: #9ca3af;
+  }
+  
+  .result {
+    border-color: #10b981;
+  }
+  
+  .image-frame img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .detection-badge, .no-detection-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .detection-badge {
+    background-color: #10b981;
+  }
+  
+  .no-detection-badge {
+    background-color: #eab308;
+  }
+  
+  .detections-list {
+    margin-top: 15px;
+    background-color: white;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detections-list h3 {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  
+  .detections-list ul {
+    padding-left: 20px;
+    font-size: 14px;
+  }
+  
+  .detections-list li {
+    margin-bottom: 4px;
+  }
