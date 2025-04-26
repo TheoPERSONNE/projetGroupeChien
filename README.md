@@ -152,7 +152,9 @@ Ce projet est sous licence [MIT](LICENSE).
 
 ## Auteurs
 
-- [Votre nom]
+- Boussad AIT DJOUDI
+- Theo personne
+- Akram CHOUICHI
 
 ## Remerciements
 
