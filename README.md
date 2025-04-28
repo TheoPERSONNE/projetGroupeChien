@@ -115,7 +115,101 @@ project-root/
 │       ├── index.js        # Point d'entrée React
 │       └── index.css       # Styles de base
 ```
+## La préparation des données
+Pour ce projet, j'ai utilisé le Stanford Dogs Dataset, un ensemble de plus de 20 000 images réparties sur 120 races de chiens, idéal pour la classification fine.
+Le Stanford Dogs Dataset est composé de :
 
+20 580 images au total,
+
+120 races de chiens différentes,
+
+Annotations sous forme de fichiers .xml: chaque image est accompagnée d'une étiquette indiquant la race du chien,
+
+Chaque fichier .xml contient :
+                              . Le nom de la race (classe de l'image),
+                              . La bounding box (les coordonnées xmin, ymin, xmax, ymax pour localiser le chien dans l'image).
+
+
+En résumé : il contient des images + labels de races + boîtes englobantes.les extensions des fichier :  Images → .jpg , Annotations → .xml
+
+Comme j'ai utilisé le modèle YOLO, qui attend des annotations au format .txt, j'ai extrait à partir des fichiers .xml le numéro de la classe  et les coordonnées des boîtes englobantes, en les convertissant dans le format YOLO : un fichier .txt par image contenant la classe et la bounding box normalisée.
+
+## model yoloV8
+YOLOv8 est un modèle d'intelligence artificielle pour la détection d'objets, 
+Il peut faire plusieurs tâches :
+
+Détection d'objets (trouver et classer les objets dans une image),
+
+Segmentation (découper précisément les objets),
+
+
+
+YOLOv8 est basé sur une architecture de type CNN (Convolutional Neural Network), car elle traite des images pour détecter et localiser des objets. développé par Ultralytics.
+C'est une évolution de la série YOLO (You Only Look Once), connu pour être rapide et précis.
+YOLOv8 est entièrement reconstruit en PyTorch, avec une nouvelle architecture plus flexible.
+
+Paramètres du modèle :
+Le nombre de paramètres dépend de la taille du modèle que tu choisis :
+
+YOLOv8n (nano) : environ 3 millions de paramètres,
+
+YOLOv8s (small) : environ 11 millions,
+
+YOLOv8m (medium) : environ 25 millions,
+
+YOLOv8l (large) : environ 43 millions,
+
+YOLOv8x (extra large) : environ 68 millions.
+
+Entraînement initial de yolov8:
+YOLOv8 a été pré-entraîné principalement sur de grands datasets comme COCO.
+
+#### COCO, c’est quoi ?
+
+COCO signifie "Common Objects in Context",
+
+C’est un grand dataset d’images réelles,
+
+Il contient environ 123287 images d’entraînement,
+
+Et plus de 80 classes d’objets (personnes, voitures, animaux, etc.),
+
+COCO est utilisé pour entraîner des modèles capables de détecter une grande variété d’objets dans des scènes naturelles.
+
+Dans notre cas, nous avons appliqué le fine-tuning au modèle YOLOv8 pour l'adapter à notre dataset spécifique.
+
+#### Fine-tuning, c’est quoi ?
+
+Le fine-tuning consiste à prendre un modèle déjà pré-entraîné (comme YOLOv8 entraîné sur COCO) et à l'adapter à un nouveau dataset spécifique (comme mon dataset Stanford Dogs).
+
+Cela permet d’obtenir de meilleures performances plus rapidement que d’entraîner un modèle à partir de zéro.
+
+Pendant le fine-tuning, on ajuste seulement une partie ou la totalité du modèle pour qu'il apprenne à reconnaître les nouvelles classes ou à s'adapter à de nouvelles données.
+
+#### Passage de la Classification à la Détection d'Objets
+Au départ, le projet m'avait demandé de réaliser une classification d'images, c'est-à-dire d'identifier la race d'un chien dans chaque image. Cependant, en examinant les images du dataset, j'ai constaté que certaines images contenaient deux chiens ou plus. Cela a conduit à un changement de direction : au lieu de simplement classer les images, nous avons décidé de relever le défi et de passer à une détection d'objets.
+
+Ainsi, nous avons adapté le modèle YOLOv8 pour non seulement classer les chiens par race, mais aussi pour localiser et identifier plusieurs chiens présents dans une seule image, en générant des boîtes englobantes pour chaque chien détecté.
+
+#### Pour la préparation des données
+Comme mentionné précédemment, la première étape de la préparation des données a consisté à extraire les classes et les boîtes englobantes des fichiers d'annotations et à les convertir dans des fichiers .txt. Ensuite, nous avons réparti les images en trois ensembles : 70 % pour l'entraînement, 15 % pour la validation et 15 % pour le test. Nous n'avons pas procédé à un redimensionnement ou à une manipulation manuelle des images, car YOLO prend en charge automatiquement ces étapes durant l'entraînement, comme le redimensionnement des images à 640x640 pixels et la normalisation des valeurs des pixels.
+
+Enfin, nous avons créé le fichier data.yaml afin de permettre à YOLO de charger correctement le dataset, d'identifier les classes et de localiser les images et annotations nécessaires à l'entraînement et à la validation du modèle.
+
+#### l'entraînement du modèle
+nous avons entraîné ce modèle sur le dataset en utilisant les paramètres suivants :
+
+data.yaml 
+epochs=50 : nous avons effectué 50 passes (époques) sur l'ensemble du dataset.
+imgsz=640 : les images ont été redimensionnées à 640x640 pixels pour l'entraînement.
+batch=16 : le modèle a utilisé une taille de batch de 16 images à chaque itération.
+device='cpu' : initialement, nous avons utilisé le processeur pour l'entraînement. Cependant, nous avons ensuite opté pour le GPU de Kaggle, qui offre 30 heures gratuites d’utilisation de ressources GPU pour accélérer l'entraînement.
+
+Le modèle a été entraîné avec l'option pretrained=True, ce qui signifie qu'il a bénéficié des poids pré-existants du modèle YOLOv8, permettant d'améliorer les performances sur notre dataset. Enfin, nous avons activé l'option verbose=True pour suivre les progrès de l'entraînement et plots=True pour visualiser les courbes de loss et de précision, ce qui nous a permis de suivre l'évolution de l'apprentissage en temps réel.
+#### résultat obtenu
+À la fin de l'entraînement, les résultats obtenus étaient les suivants : **précision de 0,71**, **rappel de 0,71** et **mAP@50 de 0,77**.
+
+![Texte alternatif pour l'image](results.png)
 ## Personnalisation
 
 ### Modèle YOLO
