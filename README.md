@@ -123,7 +123,7 @@ Le Stanford Dogs Dataset est composé de :
 
 120 races de chiens différentes,
 
-Annotations sous forme de fichiers .xml: chaque image est accompagnée d'une étiquette indiquant la race du chien,
+Annotations sous forme de fichiers .xml: 
 
 Chaque fichier .xml contient :
                               . Le nom de la race (classe de l'image),
@@ -148,19 +148,6 @@ YOLOv8 est basé sur une architecture de type CNN (Convolutional Neural Network)
 C'est une évolution de la série YOLO (You Only Look Once), connu pour être rapide et précis.
 YOLOv8 est entièrement reconstruit en PyTorch, avec une nouvelle architecture plus flexible.
 
-Paramètres du modèle :
-Le nombre de paramètres dépend de la taille du modèle que tu choisis :
-
-YOLOv8n (nano) : environ 3 millions de paramètres,
-
-YOLOv8s (small) : environ 11 millions,
-
-YOLOv8m (medium) : environ 25 millions,
-
-YOLOv8l (large) : environ 43 millions,
-
-YOLOv8x (extra large) : environ 68 millions.
-
 Entraînement initial de yolov8:
 YOLOv8 a été pré-entraîné principalement sur de grands datasets comme COCO.
 
@@ -177,6 +164,21 @@ Et plus de 80 classes d’objets (personnes, voitures, animaux, etc.),
 COCO est utilisé pour entraîner des modèles capables de détecter une grande variété d’objets dans des scènes naturelles.
 
 Dans notre cas, nous avons appliqué le fine-tuning au modèle YOLOv8 pour l'adapter à notre dataset spécifique.
+
+Paramètres du modèle :
+Le nombre de paramètres dépend de la taille du modèle que tu choisis :
+
+YOLOv8n (nano) : environ 3 millions de paramètres,
+
+YOLOv8s (small) : environ 11 millions,
+
+YOLOv8m (medium) : environ 25 millions,
+
+YOLOv8l (large) : environ 43 millions,
+
+YOLOv8x (extra large) : environ 68 millions.
+
+
 
 #### Fine-tuning, c’est quoi ?
 
