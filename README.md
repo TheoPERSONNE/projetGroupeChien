@@ -1,7 +1,9 @@
 # Application de Détection de Chiens avec YOLO, React et Flask
 
 Cette application web permet aux utilisateurs de télécharger des images pour détecter les chiens à l'aide d'un modèle YOLO pré-entraîné. Le système utilise un backend Flask pour le traitement des images et un frontend React pour l'interface utilisateur.
-![Texte alternatif pour l'image](image.png)
+
+![asuprimer](https://github.com/user-attachments/assets/d0286e63-1345-415f-aaee-bd1f6a368c4c)
+
 ## Fonctionnalités
 
 - Interface utilisateur intuitive pour télécharger des images
@@ -211,7 +213,8 @@ Le modèle a été entraîné avec l'option pretrained=True, ce qui signifie qu'
 #### résultat obtenu
 À la fin de l'entraînement, les résultats obtenus étaient les suivants : **précision de 0,71**, **rappel de 0,71** et **mAP@50 de 0,77**.
 
-![Texte alternatif pour l'image](results.png)
+![asuprimer2](https://github.com/user-attachments/assets/042d8e2a-4867-452f-8694-feaf837f8a96)
+
 ## Personnalisation
 
 ### Modèle YOLO
